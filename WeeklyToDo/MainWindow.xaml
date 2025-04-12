@@ -19,13 +19,14 @@
         </Grid.ColumnDefinitions>
 
         <!-- Top Buttons -->
-        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
-            <Button Content="URGENT" Background="LightBlue" Margin="10" Padding="10,5"/>
-            <Button Content="DAILY" Background="LightBlue" Margin="10" Padding="10,5"/>
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5">
+            <Button Content="URGENT" Background="LightBlue" Margin="5" Padding="10,5"/>
+            <Button Content="DAILY" Background="LightBlue" Margin="5" Padding="10,5"/>
+            <Button Content="ALL TASKS" Background="LightBlue" Margin="5" Padding="10,5"/>
         </StackPanel>
 
         <!-- Weekday Buttons -->
-        <UniformGrid Grid.Row="1" Grid.ColumnSpan="2" Columns="7" Margin="0,10" HorizontalAlignment="Stretch">
+        <UniformGrid Grid.Row="1" Grid.ColumnSpan="2" Columns="7" Margin="0,5" HorizontalAlignment="Stretch">
             <Button Content="SUN" Background="LightBlue" Margin="5"/>
             <Button Content="MON" Background="LightBlue" Margin="5"/>
             <Button Content="TUES" Background="LightBlue" Margin="5"/>
@@ -67,7 +68,7 @@
             <TextBox Grid.Row="1" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
             <Label Grid.Row="2" Content="Date" />
-            <TextBox Grid.Row="3"  Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <DatePicker SelectedDateFormat="Long" Grid.Row="3"  Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
             <Label Grid.Row="4" Content="Location" />
             <TextBox Grid.Row="5"  Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
