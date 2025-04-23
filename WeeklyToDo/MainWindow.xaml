@@ -37,7 +37,7 @@
         </UniformGrid>
 
         <!-- ListBox -->
-        <ListBox Grid.Row="2" Grid.Column="0" Margin="10" />
+        <ListBox x:Name="ListBoxTasks" Grid.Row="2" Grid.Column="0" Margin="10" />
 
         <!-- TextBoxes in Grid for resizable layout -->
         <Grid Grid.Row="2" Grid.Column="1" Margin="10">
@@ -65,19 +65,19 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Content="Task Name"/>
-            <TextBox Grid.Row="1" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+            <TextBox x:Name="TaskNameTextBox" Grid.Row="1" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
             <Label Grid.Row="2" Content="Date" />
-            <DatePicker SelectedDateFormat="Long" Grid.Row="3"  Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <DatePicker x:Name="DatePicker" SelectedDateFormat="Long" Grid.Row="3"  Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
             <Label Grid.Row="4" Content="Location" />
-            <TextBox Grid.Row="5"  Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <TextBox x:Name="LocationTextBox" Grid.Row="5"  Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
             <Label Grid.Row="6" Content="Description"/>
-            <TextBox Grid.Row="7"  Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <TextBox x:Name="DescriptionTextBox" Grid.Row="7"  Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
             <Label Grid.Row="8" Content="Urgency" />
-            <ComboBox Grid.Row="9" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <ComboBox x:Name="UrgencyComboBox" Grid.Row="9" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <ComboBoxItem IsSelected="True" Content="Normal Urgency"/>
                 <ComboBoxItem Content="Semi-Urgent"/>
                 <ComboBoxItem Content="Urgent"/>
@@ -93,9 +93,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="ADD" Background="Green" Foreground="White" Margin="5"/>
-            <Button Grid.Column="1" Content="DELETE" Background="Red" Foreground="White" Margin="5"/>
-            <Button Grid.Column="2" Content="EDIT" Background="RoyalBlue" Foreground="White" Margin="5"/>
+            <Button Grid.Column="0" Content="ADD" Background="Green" Foreground="White" Margin="5" Click="AddButton_Click"/>
+            <Button Grid.Column="1" Content="DELETE" Background="Red" Foreground="White" Margin="5" Click="DeleteButton_Click"/>
+            <Button Grid.Column="2" Content="EDIT" Background="RoyalBlue" Foreground="White" Margin="5" Click="EditButton_Click"/>
         </Grid>
     </Grid>
 </Window>

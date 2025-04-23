@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeeklyToDo
+namespace ToDoApp
 {
-    abstract class Task
+    public abstract class ToDoTask
     {
         private string name;
         private DateTime date;
         private string location;
         private string description;
-        private string urgency;
+        public abstract string Urgency { get; }
 
         public string Name { 
             get { return name; }
@@ -35,10 +35,10 @@ namespace WeeklyToDo
             get { return description; }
             set { description = value ?? throw new ArgumentNullException(nameof(value), "Description cannot be null"); }
         }
-        public string Urgency
+        public override string ToString()
         {
-            get { return urgency; }
-            set { urgency = value; }
+            return $"{Name} - {Urgency} - {Date.ToShortDateString()} - {Location} - {Description}";
         }
+
     }
 }
