@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.ComponentModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -18,11 +19,13 @@ namespace WeeklyToDo
     public partial class MainWindow : Window
     {
         private TaskManager taskManager = new TaskManager();
+        private ICollectionView taskView;
         public MainWindow()
         {
             
             InitializeComponent();
             ListBoxTasks.ItemsSource = taskManager.Tasks;
+            taskView = CollectionViewSource.GetDefaultView(taskManager.Tasks);
         }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
@@ -96,6 +99,94 @@ namespace WeeklyToDo
             
         }
 
+        private void ListBoxTasks_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ListBoxTasks.SelectedItem is ToDoTask selectedTask)
+            {
+                TaskNameTextBox.Text = selectedTask.Name;
+                DatePicker.SelectedDate = selectedTask.Date;
+                LocationTextBox.Text = selectedTask.Location;
+                DescriptionTextBox.Text = selectedTask.Description;
+
+                // Set urgency ComboBox
+                string urgency = selectedTask switch
+                {
+                    NormalTask => "Normal Urgency",
+                    SemiUrgentTask => "Semi-Urgent",
+                    UrgentTask => "Urgent",
+                    _ => "Normal Urgency"
+                };
+
+                foreach (ComboBoxItem item in UrgencyComboBox.Items)
+                {
+                    if (item.Content.ToString() == urgency)
+                    {
+                        UrgencyComboBox.SelectedItem = item;
+                        break;
+                    }
+                }
+            }
+        }
+
+       
+        
+        
+        private void ShowAllTasks()
+        {
+            taskView.Filter = null;
+            SortByUrgencyDescending();
+            taskView.Refresh();
+        }
+        private void AllTasksButton_Click(object sender, RoutedEventArgs e) => ShowAllTasks();
+
+        private void ShowUrgentTasks()
+        {
+            taskView.Filter = task => task is UrgentTask;
+            taskView.Refresh();
+        }
+        private void UrgentButton_Click(object sender, RoutedEventArgs e) => ShowUrgentTasks();
+
+        private void ShowDailyTasks()
+        {
+            taskView.Filter = task =>
+            {
+                if (task is ToDoTask t)
+                    return t.Date.Date == DateTime.Today;
+                return false;
+            };
+            SortByUrgencyDescending();
+            taskView.Refresh();
+        }
+        private void DailyButton_Click(object sender, RoutedEventArgs e) => ShowDailyTasks();
+
+        private void ShowTasksForDay(DayOfWeek day)
+        {
+            taskView.Filter = task =>
+            {
+                if (task is ToDoTask t)
+                    return t.Date.DayOfWeek == day;
+                return false;
+            };
+            SortByUrgencyDescending();
+            taskView.Refresh();
+        }
+
+        private void DayButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && Enum.TryParse(button.Tag.ToString(), out DayOfWeek day))
+            {
+                ShowTasksForDay(day);
+                SortByUrgencyDescending();
+            }
+        }
+
+
+        private void SortByUrgencyDescending()
+        {
+            taskView.SortDescriptions.Clear();
+            taskView.SortDescriptions.Add(new SortDescription(nameof(ToDoTask.UrgencyLevel), ListSortDirection.Descending));
+            taskView.Refresh();
+        }
 
 
 

@@ -5,97 +5,93 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WeeklyToDo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="LightGray">
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
+        Title="MainWindow" MinHeight="500" MinWidth="300" Background="LightGray">
 
-        <!-- Top Buttons -->
-        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5">
-            <Button Content="URGENT" Background="LightBlue" Margin="5" Padding="10,5"/>
-            <Button Content="DAILY" Background="LightBlue" Margin="5" Padding="10,5"/>
-            <Button Content="ALL TASKS" Background="LightBlue" Margin="5" Padding="10,5"/>
-        </StackPanel>
+ 
+    <DockPanel>
 
-        <!-- Weekday Buttons -->
-        <UniformGrid Grid.Row="1" Grid.ColumnSpan="2" Columns="7" Margin="0,5" HorizontalAlignment="Stretch">
-            <Button Content="SUN" Background="LightBlue" Margin="5"/>
-            <Button Content="MON" Background="LightBlue" Margin="5"/>
-            <Button Content="TUES" Background="LightBlue" Margin="5"/>
-            <Button Content="WED" Background="LightBlue" Margin="5"/>
-            <Button Content="THURS" Background="LightBlue" Margin="5"/>
-            <Button Content="FRI" Background="LightBlue" Margin="5"/>
-            <Button Content="SAT" Background="LightBlue" Margin="5"/>
-        </UniformGrid>
-
-        <!-- ListBox -->
-        <ListBox x:Name="ListBoxTasks" Grid.Row="2" Grid.Column="0" Margin="10" />
-
-        <!-- TextBoxes in Grid for resizable layout -->
-        <Grid Grid.Row="2" Grid.Column="1" Margin="10">
+        <!-- Main Grid UI -->
+        <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <!-- Label: Task Name -->
                 <RowDefinition Height="Auto"/>
-                <!-- TextBox: Task Name -->
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
-                <!-- Label: Date -->
-                <RowDefinition Height="Auto"/>
-                <!-- TextBox: Date -->
-                <RowDefinition Height="Auto"/>
-                <!-- Label: Location -->
-                <RowDefinition Height="Auto"/>
-                <!-- TextBox: Location -->
-                <RowDefinition Height="Auto"/>
-                <!-- Label: Description -->
-                <RowDefinition Height="Auto"/>
-                <!-- TextBox: Description -->
-                <RowDefinition Height="Auto"/>
-                <!-- Label: Urgency -->
-                <RowDefinition Height="Auto"/>
-                <!-- ComboBox: Urgency -->
             </Grid.RowDefinitions>
-
-            <Label Grid.Row="0" Content="Task Name"/>
-            <TextBox x:Name="TaskNameTextBox" Grid.Row="1" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
-
-            <Label Grid.Row="2" Content="Date" />
-            <DatePicker x:Name="DatePicker" SelectedDateFormat="Long" Grid.Row="3"  Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-
-            <Label Grid.Row="4" Content="Location" />
-            <TextBox x:Name="LocationTextBox" Grid.Row="5"  Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-
-            <Label Grid.Row="6" Content="Description"/>
-            <TextBox x:Name="DescriptionTextBox" Grid.Row="7"  Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-
-            <Label Grid.Row="8" Content="Urgency" />
-            <ComboBox x:Name="UrgencyComboBox" Grid.Row="9" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <ComboBoxItem IsSelected="True" Content="Normal Urgency"/>
-                <ComboBoxItem Content="Semi-Urgent"/>
-                <ComboBoxItem Content="Urgent"/>
-            </ComboBox>
-
-        </Grid>
-
-        <!-- Action Buttons in Grid -->
-        <Grid Grid.Row="3" Grid.Column="1" Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="ADD" Background="Green" Foreground="White" Margin="5" Click="AddButton_Click"/>
-            <Button Grid.Column="1" Content="DELETE" Background="Red" Foreground="White" Margin="5" Click="DeleteButton_Click"/>
-            <Button Grid.Column="2" Content="EDIT" Background="RoyalBlue" Foreground="White" Margin="5" Click="EditButton_Click"/>
+            <!-- Top Buttons -->
+            <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5">
+                <Button Content="URGENT" Background="LightBlue" Margin="5" Padding="10,5" Click="UrgentButton_Click"/>
+                <Button Content="DAILY" Background="LightBlue" Margin="5" Padding="10,5" Click="DailyButton_Click"/>
+                <Button Content="ALL TASKS" Background="LightBlue" Margin="5" Padding="10,5" Click="AllTasksButton_Click"/>
+            </StackPanel>
+
+            <!-- Weekday Buttons -->
+            <UniformGrid Grid.Row="1" Grid.ColumnSpan="2" Columns="7" Margin="0,5" HorizontalAlignment="Stretch">
+                <Button Content="SUN" Click="DayButton_Click" Tag="Sunday" Background="LightBlue" Margin="5"/>
+                <Button Content="MON" Click="DayButton_Click" Tag="Monday" Background="LightBlue" Margin="5"/>
+                <Button Content="TUES" Click="DayButton_Click" Tag="Tuesday" Background="LightBlue" Margin="5"/>
+                <Button Content="WED" Click="DayButton_Click" Tag="Wednesday" Background="LightBlue" Margin="5"/>
+                <Button Content="THURS" Click="DayButton_Click" Tag="Thursday" Background="LightBlue" Margin="5"/>
+                <Button Content="FRI" Click="DayButton_Click" Tag="Friday" Background="LightBlue" Margin="5"/>
+                <Button Content="SAT" Click="DayButton_Click" Tag="Saturday" Background="LightBlue" Margin="5"/>
+            </UniformGrid>
+
+            <!-- ListBox -->
+            <ListBox x:Name="ListBoxTasks" Grid.Row="2" Grid.Column="0" Margin="10" SelectionChanged="ListBoxTasks_SelectionChanged" />
+
+            <!-- Details Grid -->
+            <Grid Grid.Row="2" Grid.Column="1" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Content="Task Name"/>
+                <TextBox x:Name="TaskNameTextBox" Grid.Row="1" Margin="5"/>
+
+                <Label Grid.Row="2" Content="Date"/>
+                <DatePicker x:Name="DatePicker" Grid.Row="3" Margin="5"/>
+
+                <Label Grid.Row="4" Content="Location"/>
+                <TextBox x:Name="LocationTextBox" Grid.Row="5" Margin="5"/>
+
+                <Label Grid.Row="6" Content="Description"/>
+                <TextBox x:Name="DescriptionTextBox" Grid.Row="7" Margin="5"/>
+
+                <Label Grid.Row="8" Content="Urgency"/>
+                <ComboBox x:Name="UrgencyComboBox" Grid.Row="9" Margin="5">
+                    <ComboBoxItem IsSelected="True" Content="Normal Urgency"/>
+                    <ComboBoxItem Content="Semi-Urgent"/>
+                    <ComboBoxItem Content="Urgent"/>
+                </ComboBox>
+            </Grid>
+
+            <!-- Action Buttons -->
+            <Grid Grid.Row="3" Grid.Column="1" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="ADD" Background="Green" Foreground="White" Margin="5" Click="AddButton_Click"/>
+                <Button Grid.Column="1" Content="DELETE" Background="Red" Foreground="White" Margin="5" Click="DeleteButton_Click"/>
+                <Button Grid.Column="2" Content="EDIT" Background="RoyalBlue" Foreground="White" Margin="5" Click="EditButton_Click"/>
+            </Grid>
         </Grid>
-    </Grid>
+    </DockPanel>
 </Window>
+
