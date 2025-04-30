@@ -26,7 +26,7 @@
             <!-- Top Buttons -->
             <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5">
                 <Button Content="URGENT" Background="LightBlue" Margin="5" Padding="10,5" Click="UrgentButton_Click"/>
-                <Button Content="DAILY" Background="LightBlue" Margin="5" Padding="10,5" Click="DailyButton_Click"/>
+                <Button Content="TODAY" Background="LightBlue" Margin="5" Padding="10,5" Click="DailyButton_Click"/>
                 <Button Content="ALL TASKS" Background="LightBlue" Margin="5" Padding="10,5" Click="AllTasksButton_Click"/>
             </StackPanel>
 
