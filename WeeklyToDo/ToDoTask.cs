@@ -9,15 +9,19 @@ using System.Threading.Tasks;
 
 namespace ToDoApp
 {
-    public abstract class ToDoTask
+    public class ToDoTask
     {
-        
-        private string name;
-        private DateTime date;
-        private string location;
-        private string description;
-        public abstract string Urgency { get; }
-        public virtual int UrgencyLevel => 1; // Default: Normal
+
+        public string name;
+        public DateTime date;
+        public string location;
+        public string description;
+
+        // Use this string to store the urgency
+        public string UrgencyString {  get; set; }
+
+        public virtual int UrgencyLevel => 1;
+     
 
         public string Name { 
             get { return name; }
@@ -44,7 +48,7 @@ namespace ToDoApp
 
         public override string ToString()
         {
-            return $"{Name} - {Urgency} - {Date.ToShortDateString()} - {Location} - {Description}";
+            return $"{Name} - {UrgencyString} - {Date.ToShortDateString()} - {Location} - {Description}";
         }
 
     }
