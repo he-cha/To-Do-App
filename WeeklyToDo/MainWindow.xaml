@@ -9,6 +9,12 @@
 
  
     <DockPanel>
+        <Menu VerticalAlignment="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Save" Click="SaveButton_Click"/>
+                <MenuItem Header="_Load" Click="LoadButton_Click"/>
+            </MenuItem>
+        </Menu>
 
         <!-- Main Grid UI -->
         <Grid Margin="10">

@@ -1,14 +1,8 @@
-﻿using System.ComponentModel;
-using System.Text;
+﻿using Microsoft.Win32;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ToDoApp;
 
 namespace WeeklyToDo
@@ -49,6 +43,7 @@ namespace WeeklyToDo
             task.Date = DatePicker.SelectedDate ?? DateTime.Now;
             task.Location = LocationTextBox.Text;
             task.Description = DescriptionTextBox.Text;
+            task.UrgencyString = urgency;
 
             taskManager.AddTask(task);
             ListBoxTasks.Items.Refresh();
@@ -92,6 +87,7 @@ namespace WeeklyToDo
             editedTask.Date = DatePicker.SelectedDate ?? DateTime.Now;
             editedTask.Location = LocationTextBox.Text;
             editedTask.Description = DescriptionTextBox.Text;
+            editedTask.UrgencyString = urgency;
 
             taskManager.EditTask(index, editedTask);
             ListBoxTasks.Items.Refresh();
@@ -186,6 +182,34 @@ namespace WeeklyToDo
             taskView.SortDescriptions.Clear();
             taskView.SortDescriptions.Add(new SortDescription(nameof(ToDoTask.UrgencyLevel), ListSortDirection.Descending));
             taskView.Refresh();
+        }
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog
+            {
+                Filter = "JSON Files (*.json)|*.json",
+                DefaultExt = "json"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                taskManager.SaveToFile(dialog.FileName);
+            }
+        }
+
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                Filter = "JSON Files (*.json)|*.json",
+                DefaultExt = "json"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                taskManager.LoadFromFile(dialog.FileName);
+                ListBoxTasks.Items.Refresh();
+            }
         }
 
 
